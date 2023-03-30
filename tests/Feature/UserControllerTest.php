@@ -14,9 +14,26 @@ class UserControllerTest extends TestCase
         $this->get('/login')
             ->assertSeeText('login');
     }
+    public function testLoginPageForMember()
+    {
+        $this->withSession([
+            "user" => "daud"
+        ])->get('/login')
+            ->assertRedirect('/');
+    }
     public function testLoginSuccess()
     {
         $this->post('/login', [
+            "user" => "daud",
+            "password" => "admin"
+        ])->assertRedirect("/")
+            ->assertSessionHas("user", "daud");
+    }
+    public function testLoginForUserAlreadyLogin()
+    {
+        $this->withSession([
+            "user" => 'daud'
+        ])->post('/login', [
             "user" => "daud",
             "password" => "admin"
         ])->assertRedirect("/")
@@ -40,5 +57,4 @@ class UserControllerTest extends TestCase
         ])->post('/logout')
             ->assertSessionMissing("user");
     }
-
 }
