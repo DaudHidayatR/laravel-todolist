@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Session;
 use Tests\TestCase;
+use function PHPUnit\Framework\assertEquals;
 
 class TodolistServiceTest extends TestCase
 {
@@ -30,6 +31,27 @@ protected function setUp(): void
             self::assertEquals('1', $value['id']);
             self::assertEquals('daud', $value['todo']);
         }
+    }
+
+    public function testTodolistEmpty()
+    {
+        assertEquals([], $this->todoListService->getTodolist());
+    }
+    public function testTodolistNotEmpty()
+    {
+        $expected = [
+            [
+                'id' => '1',
+                'todo' => 'daud'
+            ],
+            [
+                'id' => '2',
+                'todo' => 'hidayat'
+            ]
+        ];
+        $this->todoListService->saveTodo('1', 'daud');
+        $this->todoListService->saveTodo('2', 'hidayat');
+        assertEquals($expected, $this->todoListService->getTodolist());
     }
 
 
