@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Services\TodolistService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Session;
 use Tests\TestCase;
 
 class TodolistServiceTest extends TestCase
@@ -20,4 +21,16 @@ protected function setUp(): void
     {
     self::assertNotNull($this->todoListService);
     }
+
+    public function testSaveTodo()
+    {
+        $this->todoListService->saveTodo("1", 'daud');
+        $todolist = Session::get('todolist');
+        foreach ($todolist as $value){
+            self::assertEquals('1', $value['id']);
+            self::assertEquals('daud', $value['todo']);
+        }
+    }
+
+
 }
