@@ -53,6 +53,17 @@ protected function setUp(): void
         $this->todoListService->saveTodo('2', 'hidayat');
         assertEquals($expected, $this->todoListService->getTodolist());
     }
+    public function testRemoveTodolist()
+    {
+        $this->todoListService->saveTodo('1', 'daud');
+        $this->todoListService->saveTodo('2', 'Hidayat');
+        $this->todoListService->getTodolist();
+        $this->todoListService->removeTodolist('1');
 
+        self::assertEquals(1, sizeof($this->todoListService->getTodolist()));
+        $this->todoListService->removeTodolist('3');
+        self::assertEquals(1, sizeof($this->todoListService->getTodolist()));
+
+    }
 
 }
