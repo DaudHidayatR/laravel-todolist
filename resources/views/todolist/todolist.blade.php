@@ -11,19 +11,22 @@
 </head>
 <body>
 <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+
     @if(isset($error))
-    <div class="row">
-        <div class="alert alert-danger" role="alert">
-            {{$error}}
+        <div class="row">
+            <div class="alert alert-danger" role="alert">
+                {{$error}}
+            </div>
         </div>
-    </div>
     @endif
+
     <div class="row">
         <form method="post" action="/logout">
             @csrf
             <button class="w-15 btn btn-lg btn-danger" type="submit">Sign Out</button>
         </form>
     </div>
+
     <div class="row align-items-center g-lg-5 py-5">
         <div class="col-lg-7 text-center text-lg-start">
             <h1 class="display-4 fw-bold lh-1 mb-3">Todolist</h1>
@@ -58,13 +61,15 @@
                 @foreach($todolist as $todo)
                     <tr>
                         <th scope="row">{{$todo['id']}}</th>
-                        <td>{{$todo['todo']}}r</td>
+                        <td>{{$todo['todo']}}</td>
                         <td>
-                            <button class="w-100 btn btn-lg btn-danger" type="submit">Remove</button>
+                            <form action="/todolist/{{$todo['id']}}/delete" method="post">
+                                @csrf
+                                <button class="w-100 btn btn-lg btn-danger" type="submit">Remove</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
-
                 </tbody>
             </table>
         </div>
