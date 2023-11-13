@@ -19,7 +19,13 @@
             </div>
         </div>
     @endif
-
+    @if(session()->has('massage'))
+        <div class="row">
+            <div class="alert alert-success" role="alert">
+                {{session()->get('massage')}}
+            </div>
+        </div>
+        @endif
     <div class="row">
         <form method="post" action="/logout">
             @csrf
@@ -59,15 +65,16 @@
                 </thead>
                 <tbody>
                 @foreach($todolist as $todo)
+
                     <tr>
                         <th scope="row">{{$todo['id']}}</th>
                         <td>{{$todo['todo']}}</td>
                         <td>
-                            <form action="/todolist/{{$todo['id']}}/delete" method="post">
+                            <form action="/todolist/{{$todo['id']}}/delete" method="post" onclick="">
                                 @csrf
-                                <button class="w-100 btn btn-lg btn-danger" type="submit">Remove</button>
+                                <button class="w-100 btn btn-lg btn-danger" type="submit" name="remove">Remove</button>
                             </form>
-                        </td>
+                        </td>udh
                     </tr>
                 @endforeach
                 </tbody>

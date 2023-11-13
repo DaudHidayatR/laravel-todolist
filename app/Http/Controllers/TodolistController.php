@@ -36,11 +36,13 @@ class TodolistController extends Controller
         ]);
     }
         $this->todolistService->saveTodo(uniqid(), $todo);
-        return redirect()->action([TodolistController::class, 'todolist']);
+        return redirect()->back()->with('massage','Todo is added');
     }
-    public function removeTodo(Request $request, string $todoId) :RedirectResponse
+    public function removeTodo(Request $request, string $todoId)
     {
         $this->todolistService->removeTodolist($todoId);
-        return redirect()->action([TodolistController::class, 'todolist']);
+        return redirect()->back()->with('massage','Todo is removed');
+//
+
     }
 }

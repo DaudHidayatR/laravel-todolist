@@ -32,4 +32,5 @@ Route::controller(TodolistController::class)
     Route::get('/todolist', 'todolist');
     Route::post('/todolist', 'addTodo');
     Route::post('/todolist/{id}/delete', 'removeTodo');
+    Route::post('/todolist/{id}/delete', 'removeTodo');
 });
